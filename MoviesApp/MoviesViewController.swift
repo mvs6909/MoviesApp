@@ -9,10 +9,8 @@ import UIKit
 
 class MoviesViewController: UIViewController,UITableViewDelegate, UITableViewDataSource{
     @IBOutlet weak var tableView: UITableView!
-    
-    //Properties; has Global scope
+
     var movies = [[String:Any]]()   //creating an array of Dictionaries
-    
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -50,10 +48,13 @@ class MoviesViewController: UIViewController,UITableViewDelegate, UITableViewDat
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = UITableViewCell()
+        let cell = tableView.dequeueReusableCell(withIdentifier: "MovieCell") as! MovieCell
         let movie = movies[indexPath.row]
         let title = movie["title"] as! String
-        cell.textLabel!.text = title
+        let synopsis = movie["overview"] as! String
+        cell.titleLabel.text = title
+        cell.synopsisLabel.text = synopsis
+        
         return cell
     }
 }
