@@ -60,9 +60,23 @@ class MoviesViewController: UIViewController,UITableViewDelegate, UITableViewDat
         let imageURL = URL(string: baseURL+posterPath)
         
         cell.posterView.af_setImage(withURL: imageURL!)
-        
-        
-        
         return cell
+    }
+    
+    override func prepare(for segue:UIStoryboardSegue, sender: Any?){
+        print("Loading the next screen")
+        
+        //Find which movie was clicked
+        let cell = sender as! UITableViewCell
+        let indexPath = tableView.indexPath(for: cell)!
+        let movie = movies[indexPath.row]
+        
+        
+        //passing the movie to the next screen
+        
+        let movieDetailsViewController = segue.destination as! MoviesDetailsViewController
+        movieDetailsViewController.movie = movie
+        
+        tableView.deselectRow(at: indexPath, animated: true)
     }
 }
